@@ -57,8 +57,8 @@ export const transformSalesOrderRegisterData = (data: any[]) => {
       addressLine1:item.addressLine1,
       addressLine2:item.addressLine2,
       cin:item.cin,
-      insert_dt:item.insert_dt
-      
+      insert_dt:item.insert_dt,
+      pin:item.pin
     }))
   }
 

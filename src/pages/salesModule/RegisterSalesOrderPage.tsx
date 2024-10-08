@@ -217,7 +217,6 @@ const RegisterSalesOrderPage: React.FC = () => {
       </div>
       <div className="ag-theme-quartz h-[calc(100vh-100px)]">
         <AgGridReact
-          loading={loading}
           ref={gridRef}
           modules={[CsvExportModule]}
           loadingCellRenderer={loadingCellRenderer}
