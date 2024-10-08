@@ -290,7 +290,6 @@ const NoteMaterialListModal: React.FC<NoteMaterialListModalProps> = ({
               <AgGridReact
                 rowData={materialListData?.materials}
                 columnDefs={columnDefs}
-                pagination={true}
                 suppressCellFocus={true}
                 components={{ truncateCellRenderer: TruncateCellRenderer }}
                 loading={loading}

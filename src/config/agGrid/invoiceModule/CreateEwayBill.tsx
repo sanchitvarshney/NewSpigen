@@ -1980,7 +1980,6 @@ export default function CreateEwayBill() {
                   <AgGridReact
                     rowData={rowData}
                     columnDefs={columnDefs}
-                    pagination={true}
                     suppressCellFocus={true}
                     paginationPageSize={10}
                     overlayNoRowsTemplate={OverlayNoRowsTemplate}

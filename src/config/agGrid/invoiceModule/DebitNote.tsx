@@ -392,8 +392,7 @@ const DebitNote: React.FC<DebitNoteProps> = ({
           <div className="col-span-3">
             <AgGridReact
               rowData={rowData}
-              columnDefs={filteredColumnDefs as (ColDef | ColGroupDef)[]}
-              pagination={true}
+              columnDefs={filteredColumnDefs as (ColDef | ColGroupDef)[]}              
               suppressCellFocus={true}
               components={components}
               overlayNoRowsTemplate={OverlayNoRowsTemplate}
