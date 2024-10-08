@@ -2,6 +2,7 @@ import CustomTooltip from "@/components/shared/CustomTooltip";
 import { Button } from "@/components/ui/button";
 import { columnDefs } from "@/config/agGrid/mastermodule/BillingAddressTable";
 import { Plus } from "lucide-react";
+import Select from "react-select";
 import {
   Sheet,
   SheetContent,
@@ -23,7 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createBillingAddress } from "@/features/billingAddress/billingAdressSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/components/ui/use-toast";
@@ -38,6 +39,10 @@ import {
 } from "@/constants/themeContants";
 import GoBackConfermationModel from "@/components/GoBackConfermationModel";
 import FullPageLoading from "@/components/shared/FullPageLoading";
+import { customStyles } from "@/config/reactSelect/SelectColorConfig";
+import DropdownIndicator from "@/config/reactSelect/DropdownIndicator";
+import { transformPlaceData } from "@/helper/transform";
+import { fetchStates } from "@/features/salesmodule/createSalesOrderSlice";
 
 const schema = z.object({
   label: z.string().min(2, {
@@ -78,6 +83,7 @@ const MasterBillingAddressPage: React.FC = () => {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const { loading } = useSelector((state: RootState) => state.billing);
+  const { states,loading:loading2 } = useSelector((state: RootState) => state.createSalesOrder);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -130,6 +136,10 @@ const MasterBillingAddressPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(fetchStates());
+  }, []);
+
   return (
     <>
       <GoBackConfermationModel
@@ -160,7 +170,7 @@ const MasterBillingAddressPage: React.FC = () => {
                 e.preventDefault();
               }}
             >
-              {loading && <FullPageLoading />}
+              {(loading || loading2) && <FullPageLoading />}
 
               <SheetHeader className={modelFixHeaderStyle}>
                 <SheetTitle className="text-slate-600">
@@ -291,25 +301,55 @@ const MasterBillingAddressPage: React.FC = () => {
                             </FormItem>
                           )}
                         />
-                        <FormField
-                          control={form.control}
-                          name="state"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className={LableStyle}>
-                                State
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  className={InputStyle}
-                                  placeholder="Enter State"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                        <div>
+                          <FormField
+                            control={form.control}
+                            name="state"
+                            render={() => (
+                              <FormItem>
+                                <FormLabel className={LableStyle}>
+                                  State
+                                </FormLabel>
+                                <FormControl>
+                                  <Select
+                                    styles={customStyles}
+                                    placeholder="State"
+                                    className="border-0 basic-single"
+                                    classNamePrefix="select border-0"
+                                    components={{ DropdownIndicator }}
+                                    isDisabled={false}
+                                    isLoading={false}
+                                    isClearable={true}
+                                    isSearchable={true}
+                                    name="state"
+                                    options={
+                                      Array.isArray(states)
+                                        ? transformPlaceData(states)
+                                        : []
+                                    } // Ensure states is an array
+                                    onChange={(e: any) => {
+                                      form.setValue("state", e.value);
+                                    }}
+                                    value={
+                                      Array.isArray(states)
+                                        ? transformPlaceData(states)?.find(
+                                            (state: any) => {
+                                              const currentValue =
+                                                form.getValues("state");
+                                              return (
+                                                state.value === currentValue
+                                              );
+                                            }
+                                          )
+                                        : null // Set to null if states is not an array
+                                    }
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                         <FormField
                           control={form.control}
                           name="addressLine1"
