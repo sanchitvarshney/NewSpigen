@@ -90,7 +90,6 @@ const MaterialListModal: React.FC<MaterialListModalProps> = ({
             modules={[CsvExportModule]}
             rowData={sellRequestDetails}
             columnDefs={columnDefs}
-            pagination={true}
             suppressCellFocus={true}
             components={{
               truncateCellRenderer: TruncateCellRenderer,

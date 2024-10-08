@@ -68,7 +68,7 @@ const ViewInvoiceModal: React.FC<ViewInvoiceModalProps> = ({
 }) => {
   const columnDefs: ColDef[] = [
     { headerName: "#", valueGetter: "node.rowIndex + 1", maxWidth: 50 },
-    { headerName: "Invoice Number", field: "so_id" },
+    { headerName: "SO ID", field: "so_id" },
     { headerName: "SKU", field: "item_part_no" },
     {
       headerName: "Material",
@@ -368,7 +368,7 @@ const ViewInvoiceModal: React.FC<ViewInvoiceModalProps> = ({
               <AgGridReact
                 rowData={sellRequestDetails?.items}
                 columnDefs={columnDefs}
-                pagination={true}
+                // pagination={true}
                 suppressCellFocus={true}
                 components={{
                   truncateCellRenderer: TruncateCellRenderer,
