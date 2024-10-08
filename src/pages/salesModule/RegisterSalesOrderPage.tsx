@@ -36,6 +36,7 @@ import FullPageLoading from "@/components/shared/FullPageLoading";
 import moment from "moment";
 import CopyCellRenderer from "@/components/shared/CopyCellRenderer";
 import { OverlayNoRowsTemplate } from "@/components/shared/OverlayNoRowsTemplate";
+import { rangePresets } from "@/General";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "DD-MM-YYYY";
@@ -172,6 +173,7 @@ const RegisterSalesOrderPage: React.FC = () => {
                           disabledDate={(current) =>
                             current && current > moment().endOf("day")
                           }
+                          presets={rangePresets}
                         />
                       </Space>
                     </FormControl>

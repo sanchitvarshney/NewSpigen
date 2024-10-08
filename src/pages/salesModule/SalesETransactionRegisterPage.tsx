@@ -59,6 +59,7 @@ import {
 import CopyCellRenderer from "@/components/shared/CopyCellRenderer";
 import { CsvExportModule } from "ag-grid-community";
 import { OverlayNoRowsTemplate } from "@/components/shared/OverlayNoRowsTemplate";
+import { rangePresets } from "@/General";
 const { RangePicker } = DatePicker;
 const dateFormat = "DD-MM-YYYY";
 const wises = [
@@ -264,6 +265,7 @@ const SalesETransactionRegisterPage: React.FC = () => {
                         <FormControl>
                           <Space direction="vertical" size={12}>
                             <RangePicker
+                            presets={rangePresets}
                               className=" border shadow-sm border-slate-400 py-[7px] hover:border-slate-300 w-[310px]"
                               onChange={(value) =>
                                 form.setValue("dateRange", value ? value.map((date) => date!.toDate()) : [])
@@ -316,7 +318,7 @@ const SalesETransactionRegisterPage: React.FC = () => {
       <div className="ag-theme-quartz h-[calc(100vh-100px)]">
         <AgGridReact
           ref={gridRef}
-          loading={loading}
+          // loading={loading}
           modules={[CsvExportModule]}
           rowData={rowData} // Use local rowData state
           columnDefs={getColumnDefs(type)}

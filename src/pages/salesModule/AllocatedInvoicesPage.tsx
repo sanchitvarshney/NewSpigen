@@ -37,6 +37,7 @@ import CopyCellRenderer from "@/components/shared/CopyCellRenderer";
 import { CsvExportModule } from "ag-grid-community";
 import { OverlayNoRowsTemplate } from "@/components/shared/OverlayNoRowsTemplate";
 import { setDateRange, setWise } from "@/features/salesmodule/SalesSlice";
+import { rangePresets } from "@/General";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "DD-MM-YYYY";
@@ -207,6 +208,7 @@ const AllocatedInvoicesPage: React.FC = () => {
                           disabledDate={(current) =>
                             current && current > moment().endOf("day")
                           }
+                          presets={rangePresets}
                         />
                       </Space>
                     </FormControl>

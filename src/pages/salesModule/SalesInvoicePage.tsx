@@ -43,6 +43,7 @@ import moment from "moment";
 import CopyCellRenderer from "@/components/shared/CopyCellRenderer";
 import { CsvExportModule } from "ag-grid-community";
 import { OverlayNoRowsTemplate } from "@/components/shared/OverlayNoRowsTemplate";
+import { rangePresets } from "@/General";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "DD-MM-YYYY";
@@ -216,6 +217,7 @@ const SalesInvoicePage: React.FC = () => {
                       <FormControl>
                         <Space direction="vertical" size={12}>
                           <RangePicker
+                          presets={rangePresets}
                             className=" border shadow-sm border-slate-400 py-[7px] hover:border-slate-300 w-[310px]"
                             onChange={(value) =>
                               form.setValue(

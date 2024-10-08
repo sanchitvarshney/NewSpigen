@@ -23,6 +23,7 @@ import { fetchSalesOrderShipmentList } from "@/features/salesmodule/SalesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { OverlayNoRowsTemplate } from "@/components/shared/OverlayNoRowsTemplate";
+import { rangePresets } from "@/General";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
@@ -161,6 +162,7 @@ const SalesShipmentPage: React.FC = () => {
                       <FormControl>
                         <Space direction="vertical" size={12}>
                           <RangePicker
+                          presets={rangePresets}
                           className=" border shadow-sm border-slate-400 py-[7px] hover:border-slate-300 w-[310px]"
                             onChange={(value) => form.setValue("dateRange", value ? value.map((date) => date!.toDate()) : [])}
                             format={dateFormat}
