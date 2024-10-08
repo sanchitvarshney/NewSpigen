@@ -90,7 +90,6 @@ const AddSalesOrder = ({
       sgst: 0,
       igst: 0,
       dueDate: "",
-      // hsnCode: "123456",
       isNew: true,
     };
     setRowData((prevData: any) => [...prevData, newRow]);
