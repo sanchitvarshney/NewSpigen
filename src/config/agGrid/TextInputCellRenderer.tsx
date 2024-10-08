@@ -196,7 +196,9 @@ const TextInputCellRenderer = (props: any) => {
     if (colDef.field === "rate") {
       data["localValue"] = newValue * parseFloat(data.orderQty);
     }
-
+    if(colDef.field === "orderQty"){
+      data["localValue"] = newValue * parseFloat(data.rate);
+    }
     // Calculate GST based on the updated values
     const gstRate = parseFloat(data.gstRate) || 0;
     let cgst = 0;
