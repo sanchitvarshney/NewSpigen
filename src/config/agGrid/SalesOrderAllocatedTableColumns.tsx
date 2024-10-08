@@ -76,7 +76,7 @@ const ActionMenu: React.FC<any> = ({ row }) => {
           dispatch(getNoteMaterialList({ note_no: row?.note_id }));
         }}
       >
-        view
+        View
       </Menu.Item>
       <Menu.Item
         key="cancel"

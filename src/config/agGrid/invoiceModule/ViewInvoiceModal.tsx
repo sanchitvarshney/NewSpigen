@@ -18,6 +18,8 @@ import {
 import { Button } from "@/components/ui/button"; // Adjust path as needed
 import { OverlayNoRowsTemplate } from "@/components/shared/OverlayNoRowsTemplate";
 import FullPageLoading from "@/components/shared/FullPageLoading";
+import { CgArrowTopRight } from "react-icons/cg";
+import { Printer } from "lucide-react";
 
 interface ViewInvoiceModalProps {
   visible: boolean;
@@ -317,18 +319,18 @@ const ViewInvoiceModal: React.FC<ViewInvoiceModalProps> = ({
                 onClick={() => handleEwayClick("Invoice")}
                 variant={"outline"}
               >
-                Generate e-Invoice
+                Generate e-Invoice <CgArrowTopRight className="h-[20px] w-[20px] font-[600]" />
               </Button>
               <Button
                 disabled={data?.isEwayBill === "Y"}
                 onClick={() => handleEwayClick("WayBill")}
                 variant={"outline"}
               >
-                Generate e-Way Bill
+                Generate e-Way Bill <CgArrowTopRight className="h-[20px] w-[20px] font-[600]" />
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">Print</Button>
+                  <Button variant="outline">Print <Printer className="pl-1 h-[20px] w-[20px] font-[600]"/></Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem

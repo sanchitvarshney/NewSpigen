@@ -421,7 +421,7 @@ export const EwayBillColumnDefs: ColDef<any>[] = [
     headerName: "E-way Bill Number",
     field: "eway_bill_no",
     filter: "agTextColumnFilter",
-    cellRenderer: "truncateCellRenderer",
+    cellRenderer: CopyCellRenderer,
   },
   {
     headerName: "Generated Date",

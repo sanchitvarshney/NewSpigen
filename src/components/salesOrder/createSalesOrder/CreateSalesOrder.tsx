@@ -123,11 +123,6 @@ const CreateSalesOrder: React.FC<Props> = ({
             shouldValidate: true,
             shouldDirty: true,
           });
-          if (billingData?.statecode === form.getValues("shipping_state")) {
-            setDerivedType("L");
-          } else {
-            setDerivedType("I");
-          }
         }
       }
     );
@@ -223,6 +218,11 @@ const CreateSalesOrder: React.FC<Props> = ({
           shouldValidate: true,
           shouldDirty: true,
         });
+        if (data?.shipmentAddress?.State?.value == "09") {
+          setDerivedType("L");
+        } else {
+          setDerivedType("I");
+        }
         form.setValue("shipping_pinCode", data?.shipmentAddress?.Pin, {
           shouldValidate: true,
           shouldDirty: true,

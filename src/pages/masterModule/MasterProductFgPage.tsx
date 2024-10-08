@@ -141,7 +141,7 @@ const MasterProductFgPage: React.FC = () => {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-8 flex flex-col gap-[20px] mt-[20px]"
+                  className="space-y-8 flex flex-col gap-[12px] mt-[20px]"
                 >
                   <div className="grid grid-cols-2 gap-[10px] items-center">
                     <FormField

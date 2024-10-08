@@ -19,13 +19,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { default as Select2 } from "react-select";
 import { Textarea } from "../ui/textarea";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/components/ui/use-toast";
@@ -37,6 +31,9 @@ import {
   fetchCountries,
   fetchStates,
 } from "@/features/salesmodule/createSalesOrderSlice";
+import { customStyles } from "@/config/reactSelect/SelectColorConfig";
+import DropdownIndicator from "@/config/reactSelect/DropdownIndicator";
+import { transformPlaceData } from "@/helper/transform";
 interface Props {
   open: boolean;
   onClose: (open: boolean) => void;
@@ -77,7 +74,10 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
       form.setValue("gst", data?.gst);
       form.setValue("addressLine1", data?.addressLine1);
       form.setValue("addressLine2", data?.addressLine2);
-      form.setValue("useAsShipmentAddress", data?.useAsShipmentAddress||false);
+      form.setValue(
+        "useAsShipmentAddress",
+        data?.useAsShipmentAddress || false
+      );
       form.setValue("shipmentAddress.label", data?.shipmentAddress?.Label);
       form.setValue("shipmentAddress.company", data?.shipmentAddress?.Company);
       form.setValue(
@@ -100,10 +100,10 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
       );
       form.setValue("shipmentAddress.gst", data?.shipmentAddress?.Gstin);
     }
-  }, [data,dispatch]);
+  }, [data, dispatch]);
 
   const copyAddressToShipment = () => {
-    const { addressLine1, addressLine2, state, country, pinCode, gst,label } =
+    const { addressLine1, addressLine2, state, country, pinCode, gst, label } =
       form.getValues();
 
     form.setValue("shipmentAddress.label", label ?? "");
@@ -120,7 +120,6 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
     dispatch(fetchCountries());
     dispatch(fetchStates());
   }, []);
-  
 
   const onSubmit = async (
     values: z.infer<typeof updateBranchAddressSchema>
@@ -169,7 +168,7 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
       >
         <SheetHeader>
           <SheetTitle className="text-slate-600">
-            Update Branch: {data?.addressID}  
+            Update Branch: {data?.addressID}
           </SheetTitle>
         </SheetHeader>
 
@@ -197,78 +196,103 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="country"
-                  render={({ field }) => (
-                    <FormItem className="border-b border-black">
-                      <FormLabel className={LableStyle}>
-                        Country
-                        <span className="pl-1 text-red-500 font-bold">*</span>
-                      </FormLabel>
-                      <FormControl>
-                        <div className="border-0 focus:outline-none focus:ring-0">
-                          <Select
-                            value={field.value}
-                            onValueChange={(value) => {
-                              form.setValue("country", value);
-                              field.onChange(value);
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="country"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className={LableStyle}>
+                          Country
+                          <span className="pl-1 text-red-500 font-bold">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Select2
+                            styles={customStyles}
+                            placeholder="Country"
+                            className="border-0 basic-single"
+                            classNamePrefix="select border-0"
+                            components={{ DropdownIndicator }}
+                            isDisabled={false}
+                            isLoading={false}
+                            isClearable={true}
+                            isSearchable={true}
+                            name="shipping_state"
+                            options={
+                              Array.isArray(countries)
+                                ? transformPlaceData(countries)
+                                : []
+                            } // Ensure states is an array
+                            onChange={(e: any) => {
+                              form.setValue("country", e.value);
                             }}
-                          >
-                            <SelectTrigger className="border-0 focus:outline-none focus:ring-0">
-                              <SelectValue placeholder="Select a filter type" />
-                            </SelectTrigger>
-                            <SelectContent className="border-0 focus:outline-none focus:ring-0">
-                              {countries?.map((item: any) => (
-                                <SelectItem
-                                  key={item.code}
-                                  value={item.code + ""}
-                                >
-                                  {item.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="state"
-                  render={({ field }) => (
-                    <FormItem className="border-b border-black">
-                      <FormLabel className={LableStyle}>
-                        State
-                        <span className="pl-1 text-red-500 font-bold">*</span>
-                      </FormLabel>
-                      <FormControl>
-                        <div className="border-0 focus:outline-none focus:ring-0">
-                          <Select
-                            value={field.value}
-                            onValueChange={(value) => {
-                              form.setValue("state", value);
+                            value={
+                              Array.isArray(countries)
+                                ? transformPlaceData(countries)?.find(
+                                    (state: any) => {
+                                      const currentValue =
+                                        form.getValues("country");
+                                      return state.value === currentValue;
+                                    }
+                                  )
+                                : null // Set to null if states is not an array
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="state"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className={LableStyle}>
+                          State
+                          <span className="pl-1 text-red-500 font-bold">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Select2
+                            styles={customStyles}
+                            placeholder="State"
+                            className="border-0 basic-single"
+                            classNamePrefix="select border-0"
+                            components={{ DropdownIndicator }}
+                            isDisabled={false}
+                            isLoading={false}
+                            isClearable={true}
+                            isSearchable={true}
+                            name="state"
+                            options={
+                              Array.isArray(states)
+                                ? transformPlaceData(states)
+                                : []
+                            } // Ensure states is an array
+                            onChange={(e: any) => {
+                              form.setValue("state", e.value);
                             }}
-                          >
-                            <SelectTrigger className="border-0 focus:outline-none focus:ring-0">
-                              <SelectValue placeholder="Select a filter type" />
-                            </SelectTrigger>
-                            <SelectContent className="border-0 focus:outline-none focus:ring-0">
-                              {states?.map((item: any) => (
-                                <SelectItem key={item.code} value={item.code}>
-                                  {item.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                            value={
+                              Array.isArray(states)
+                                ? transformPlaceData(states)?.find(
+                                    (state: any) => {
+                                      const currentValue =
+                                        form.getValues("state");
+                                      return state.value === currentValue;
+                                    }
+                                  )
+                                : null // Set to null if states is not an array
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                 <FormField
                   control={form.control}
@@ -377,7 +401,7 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
                       </FormLabel>
                       <FormControl>
                         <Textarea
-                        maxLength={100}
+                          maxLength={100}
                           className={InputStyle}
                           placeholder="Address Line 1"
                           {...field}
@@ -398,7 +422,7 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
                       </FormLabel>
                       <FormControl>
                         <Textarea
-                        maxLength={100}
+                          maxLength={100}
                           className={InputStyle}
                           placeholder="Address Line 2"
                           {...field}
@@ -488,78 +512,104 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="shipmentAddress.country"
-                  render={({ field }) => (
-                    <FormItem className="border-b border-black">
-                      <FormLabel className={LableStyle}>
-                        Country
-                        <span className="pl-1 text-red-500 font-bold">*</span>
-                      </FormLabel>
-                      <FormControl>
-                        <div className="border-0 focus:outline-none focus:ring-0">
-                          <Select
-                            value={field.value}
-                            onValueChange={(value) => {
-                              form.setValue("shipmentAddress.country", value);
-                              field.onChange(value);
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="shipmentAddress.country"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className={LableStyle}>
+                          Country
+                          <span className="pl-1 text-red-500 font-bold">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Select2
+                            styles={customStyles}
+                            placeholder="Country"
+                            className="border-0 basic-single"
+                            classNamePrefix="select border-0"
+                            components={{ DropdownIndicator }}
+                            isDisabled={false}
+                            isLoading={false}
+                            isClearable={true}
+                            isSearchable={true}
+                            name="shipping_state"
+                            options={
+                              Array.isArray(countries)
+                                ? transformPlaceData(countries)
+                                : []
+                            } // Ensure states is an array
+                            onChange={(e: any) => {
+                              form.setValue("shipmentAddress.country", e.value);
                             }}
-                          >
-                            <SelectTrigger className="border-0 focus:outline-none focus:ring-0">
-                              <SelectValue placeholder="Select a filter type" />
-                            </SelectTrigger>
-                            <SelectContent className="border-0 focus:outline-none focus:ring-0">
-                              {countries?.map((item: any) => (
-                                <SelectItem
-                                  key={item.code}
-                                  value={item.code + ""}
-                                >
-                                  {item.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="shipmentAddress.state"
-                  render={({ field }) => (
-                    <FormItem className="border-b border-black">
-                      <FormLabel className={LableStyle}>
-                        State
-                        <span className="pl-1 text-red-500 font-bold">*</span>
-                      </FormLabel>
-                      <FormControl>
-                        <div className="border-0 focus:outline-none focus:ring-0 box-shadow-none">
-                          <Select
-                            value={field.value}
-                            onValueChange={(value) => {
-                              form.setValue("shipmentAddress.state", value);
+                            value={
+                              Array.isArray(countries)
+                                ? transformPlaceData(countries)?.find(
+                                    (state: any) => {
+                                      const currentValue = form.getValues(
+                                        "shipmentAddress.country"
+                                      );
+                                      return state.value === currentValue;
+                                    }
+                                  )
+                                : null // Set to null if states is not an array
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="shipmentAddress.state"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className={LableStyle}>
+                          State
+                          <span className="pl-1 text-red-500 font-bold">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Select2
+                            styles={customStyles}
+                            placeholder="State"
+                            className="border-0 basic-single"
+                            classNamePrefix="select border-0"
+                            components={{ DropdownIndicator }}
+                            isDisabled={false}
+                            isLoading={false}
+                            isClearable={true}
+                            isSearchable={true}
+                            name="shipmentAddress.state"
+                            options={
+                              Array.isArray(states)
+                                ? transformPlaceData(states)
+                                : []
+                            } // Ensure states is an array
+                            onChange={(e: any) => {
+                              form.setValue("shipmentAddress.state", e.value);
                             }}
-                          >
-                            <SelectTrigger className="border-0 focus:outline-none focus:ring-0 box-shadow-none">
-                              <SelectValue placeholder="Select a filter type" />
-                            </SelectTrigger>
-                            <SelectContent className="border-0 focus:outline-none focus:ring-0 box-shadow-none">
-                              {states?.map((item: any) => (
-                                <SelectItem key={item.code} value={item.code}>
-                                  {item.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                            value={
+                              Array.isArray(states)
+                                ? transformPlaceData(states)?.find(
+                                    (state: any) => {
+                                      const currentValue = form.getValues(
+                                        "shipmentAddress.state"
+                                      );
+                                      return state.value === currentValue;
+                                    }
+                                  )
+                                : null // Set to null if states is not an array
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="shipmentAddress.pinCode"
@@ -634,7 +684,7 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
                       </FormLabel>
                       <FormControl>
                         <Textarea
-                        maxLength={100}
+                          maxLength={100}
                           className={InputStyle}
                           placeholder="Address Line 1"
                           {...field}
@@ -655,7 +705,7 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
                       </FormLabel>
                       <FormControl>
                         <Textarea
-                        maxLength={100}
+                          maxLength={100}
                           className={InputStyle}
                           placeholder="Address Line 2"
                           {...field}
