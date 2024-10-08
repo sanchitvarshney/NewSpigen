@@ -3,8 +3,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Props } from "@/types/MainLayout";
 import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Badge } from "@/components/ui/badge";
 import { useDispatch} from "react-redux";
 import { AppDispatch } from "@/store";
 import { logout } from "@/features/auth/authSlice";
@@ -43,7 +43,7 @@ const MainLayoutPopovers: React.FC<Props> = ({ uiState }) => {
           <SheetHeader>
             <SheetTitle className="text-slate-600">Notifications</SheetTitle>
           </SheetHeader>
-          <div className="flex flex-col gap-[10px] mt-[20px] ">
+          {/* <div className="flex flex-col gap-[10px] mt-[20px] ">
             {Array.from({ length: 3 }).map((_, i) => (
               <Link key={i} to={"#"}>
                 <Card className="border-0 rounded shadow text-slate-600 bg-blue-50">
@@ -61,7 +61,7 @@ const MainLayoutPopovers: React.FC<Props> = ({ uiState }) => {
                 </Card>
               </Link>
             ))}
-          </div>
+          </div> */}
           <SheetFooter className="absolute bottom-0 left-0 w-[100%] bg-neutral-600 py-[10px]">
             <div className="flex justify-center w-full">
               <Link to={"#"} className="text-white hover:underline">

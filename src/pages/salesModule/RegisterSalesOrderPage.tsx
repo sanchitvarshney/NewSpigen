@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,8 +61,9 @@ const RegisterSalesOrderPage: React.FC = () => {
   const gridRef = useRef<AgGridReact<any>>(null);
   const [wise, setWise] = useState<string>("DATE");
   const [isSearchPerformed, setIsSearchPerformed] = useState<boolean>(false);
+  const [rowData, setRowData] = useState<any[]>([]); 
   const dispatch = useDispatch();
-  const { data: rowData, loading } = useSelector(
+  const { data, loading } = useSelector(
     (state: RootState) => state.sellRequest
   );
 
@@ -89,6 +90,7 @@ const RegisterSalesOrderPage: React.FC = () => {
         fetchSellRequestList({ wise, data: dataString }) as any
       ).unwrap();
       if (resultAction.success) {
+        setRowData(resultAction.data);
         setIsSearchPerformed(true);
         toast({
           title: "Register fetched successfully",
@@ -116,6 +118,15 @@ const RegisterSalesOrderPage: React.FC = () => {
       gridRef.current.api.exportDataAsCsv();
     }
   }, []);
+
+  useEffect(() => {
+    setRowData([]); // Reset row data
+    setIsSearchPerformed(false); // Reset search performed state
+  }, [wise]);
+
+  useEffect(() => {
+    setRowData(data||[]);
+  },[data])
 
   return (
     <Wrapper className="h-[calc(100vh-100px)] grid grid-cols-[350px_1fr]">
