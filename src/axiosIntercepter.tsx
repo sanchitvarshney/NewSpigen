@@ -22,9 +22,6 @@ interface OtherData {
   session?: string;
 }
 
-const loggedInUser: LoggedInUser | null = JSON.parse(
-  localStorage.getItem("loggedInUser") as string
-);
 const otherData: OtherData | null = JSON.parse(
   localStorage.getItem("otherData") as string
 );
@@ -32,10 +29,18 @@ const otherData: OtherData | null = JSON.parse(
 const spigenAxios = axios.create({
   baseURL: imsLink,
   headers: {
-    "x-csrf-token": loggedInUser?.token,
+    "Content-Type": "application/json",
   },
 });
-
+spigenAxios.interceptors.request.use(async (config) => {
+  const loggedInUser: LoggedInUser | null = JSON.parse(
+    localStorage.getItem("loggedInUser") as string
+  );
+  if (loggedInUser) {
+    config.headers["x-csrf-token"] = loggedInUser.token;
+  }
+  return config;
+});
 spigenAxios.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.data?.success !== undefined) {
@@ -56,7 +61,7 @@ spigenAxios.interceptors.response.use(
 
       if (errorData.success === false) {
         toasts({
-          title: errorData?.message ,
+          title: errorData?.message,
           className: "bg-red-600 text-white items-center",
         });
         toast.error(errorData?.message || "Error occurred.");

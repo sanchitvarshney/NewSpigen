@@ -59,6 +59,14 @@ console.log(updateData,"updateData")
             shouldValidate: true,
             shouldDirty: true,
           });
+          debugger
+          
+          if (data?.state?.code == "09") {
+            setDerivedType("L");
+          } else {
+            setDerivedType("I");
+          }
+          setDerivedType(data?.state?.code=="09"?"L":"I");
           form.setValue("customer_address1", data.addressLine1, {
             shouldValidate: true,
             shouldDirty: true,
@@ -142,11 +150,6 @@ console.log(form.getValues())
         shouldDirty: true,
       });
 
-      if (bill?.state?.value == ship?.state?.value) {
-        setDerivedType("L");
-      } else {
-        setDerivedType("I");
-      }
       if (client?.length > 0) {
         const clientData = client[0];
         form.setValue("due_day", clientData?.soDueDate)
@@ -273,6 +276,11 @@ console.log(form.getValues())
           shouldValidate: true,
           shouldDirty: true,
         });
+        if (ship?.state?.value == "09") {
+          setDerivedType("L");
+        } else {
+          setDerivedType("I");
+        }
       }
 
       const updatedData: RowData[] = materials?.map((material: any) => ({
@@ -299,7 +307,7 @@ console.log(form.getValues())
       setRowData(updatedData);
     }
   }, [updateData, form]);
-
+console.log(derivedType,"derivedType")
   useEffect(() => {
     if (pathname?.includes("update") && params?.id) {
       const soId = (params.id as string).replace(/_/g, "/");

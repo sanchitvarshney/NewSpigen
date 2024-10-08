@@ -231,7 +231,7 @@ const RegisterSalesOrderPage: React.FC = () => {
           ref={gridRef}
           modules={[CsvExportModule]}
           loadingCellRenderer={loadingCellRenderer}
-          rowData={rowData ? rowData : []}
+          rowData={rowData}
           columnDefs={columnDefs}
           defaultColDef={{ filter: true, sortable: true }}
           pagination={true}

@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { CgArrowTopRight } from "react-icons/cg";
 
 interface NoteMaterialListModalProps {
   visible: boolean;
@@ -283,7 +284,7 @@ const NoteMaterialListModal: React.FC<NoteMaterialListModalProps> = ({
                 onClick={() => handleEwayClick("Invoice")}
                 variant={"outline"}
               >
-                Generate e-Invoice
+                Generate e-Invoice <CgArrowTopRight className="h-[20px] w-[20px] font-[600]" />
               </Button>
             </div>
             <div className="ag-theme-quartz flex-1">

@@ -119,7 +119,7 @@ const router = createBrowserRouter([
       <Protected authentication>
         <MainLayout>
           <SOLayout>
-           <CreateSalesOrderPage/>
+            <CreateSalesOrderPage />
           </SOLayout>
         </MainLayout>
       </Protected>
@@ -131,7 +131,7 @@ const router = createBrowserRouter([
       <Protected authentication>
         <MainLayout>
           <SOLayout>
-           <CreateSalesOrderPage/>
+            <CreateSalesOrderPage />
           </SOLayout>
         </MainLayout>
       </Protected>
@@ -141,9 +141,7 @@ const router = createBrowserRouter([
   {
     element: (
       <Protected authentication>
-        <MainLayout>
-           <CreateEwayBill/>
-        </MainLayout>
+        <CreateEwayBill />
       </Protected>
     ),
     path: "/salesOrder/e-way/:id",
@@ -151,14 +149,12 @@ const router = createBrowserRouter([
   {
     element: (
       <Protected authentication>
-        <MainLayout>
-           <CreateEwayBill/>
-        </MainLayout>
+        <CreateEwayBill />
       </Protected>
     ),
     path: "/salesOrder/e-inv/:id",
   },
-  
+
   {
     element: (
       <Protected authentication>
@@ -225,7 +221,7 @@ const router = createBrowserRouter([
     element: (
       <Protected authentication>
         <MainLayout>
-            <UomPage />
+          <UomPage />
         </MainLayout>
       </Protected>
     ),
@@ -237,7 +233,7 @@ const router = createBrowserRouter([
         <MainLayout>
           <MasterProductLayout>
             {/* <MasterProductSfgPage /> */}
-            <NotPermissionPage/>
+            <NotPermissionPage />
           </MasterProductLayout>
         </MainLayout>
       </Protected>
@@ -282,7 +278,7 @@ const router = createBrowserRouter([
     element: (
       <Protected authentication>
         <MainLayout>
-        <NotPermissionPage/>
+          <NotPermissionPage />
         </MainLayout>
       </Protected>
     ),
