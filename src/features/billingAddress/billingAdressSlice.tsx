@@ -7,7 +7,7 @@ interface BillingAddressPayload {
   pan?: string;
   gstin?: string; 
   state?: string;
-  address?: string;
+  pin?: string;
   addressLine1?:string,
   addressLine2:string,
   cin?:string,
@@ -19,6 +19,7 @@ export interface ApiResponse<T> {
   success: boolean;
   data: T;
   message?: string | null;
+  code?: number | null;
 }
 
 export const fetchBillingAddress = createAsyncThunk<

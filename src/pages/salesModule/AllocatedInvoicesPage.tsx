@@ -273,7 +273,6 @@ const AllocatedInvoicesPage: React.FC = () => {
             truncateCellRenderer: TruncateCellRenderer,
             copyCellRenderer: CopyCellRenderer,
           }}
-          loading={loading}
           overlayNoRowsTemplate={OverlayNoRowsTemplate}
         />
       </div>

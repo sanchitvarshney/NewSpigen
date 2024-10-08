@@ -322,7 +322,6 @@ const SalesETransactionRegisterPage: React.FC = () => {
       <div className="ag-theme-quartz h-[calc(100vh-100px)]">
         <AgGridReact
           ref={gridRef}
-          // loading={loading}
           modules={[CsvExportModule]}
           rowData={rowData} // Use local rowData state
           columnDefs={getColumnDefs(type)}
