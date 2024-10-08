@@ -48,8 +48,8 @@ const types = [
 ] as const;
 
 const wises = [
-  { label: "Date", value: "date" },
-  { label: "Number", value: "noteNo" },
+  { label: "Date Wise", value: "date" },
+  // { label: "Number", value: "noteNo" },
 ] as const;
 
 const FormSchema = z.object({
@@ -69,9 +69,10 @@ const AllocatedInvoicesPage: React.FC = () => {
   const gridRef = useRef<AgGridReact<any>>(null);
   const [noteType, setNoteType] = useState<any>("debit");
   const [wiseType, setWiseType] = useState<string>("date");
+  const [rowData, setRowData] = useState<any[]>([]); // Local state for row data
   const dispatch = useDispatch<AppDispatch>();
   const [isSearchPerformed, setIsSearchPerformed] = useState<boolean>(false);
-  const { data: rowData, loading } = useSelector(
+  const { loading } = useSelector(
     (state: RootState) => state.creditDebitRegister
   );
 
@@ -108,6 +109,7 @@ const AllocatedInvoicesPage: React.FC = () => {
       ).unwrap();
 
       if (resultAction.success) {
+        setRowData(resultAction.data);
         setIsSearchPerformed(true);
         toast({
           title: "Invoice fetched successfully",
@@ -138,6 +140,11 @@ const AllocatedInvoicesPage: React.FC = () => {
       dispatch(setWise(noteType)); // Dispatch the action to set the state
     }
   }, [noteType, dispatch]); 
+
+  useEffect(() => {
+    setRowData([]); // Reset row data
+    setIsSearchPerformed(false); // Reset search performed state
+  }, [noteType]);
 
   return (
     <Wrapper className="h-[calc(100vh-100px)] grid grid-cols-[350px_1fr]">

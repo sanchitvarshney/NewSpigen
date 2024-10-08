@@ -87,7 +87,7 @@ const SalesETransactionRegisterPage: React.FC = () => {
   const [isSearchPerformed, setIsSearchPerformed] = useState<boolean>(false);
   const [type, setType] = useState<any>("e-invoice");
   const [rowData, setRowData] = useState<any[]>([]); // Local state for row data
-  const { loading } = useSelector((state: RootState) => state.invoice);
+  const { data,loading } = useSelector((state: RootState) => state.invoice);
   const { loading: loading2 } = useSelector((state: RootState) => state.sellInvoice);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -108,6 +108,10 @@ const SalesETransactionRegisterPage: React.FC = () => {
     setRowData([]); // Reset row data
     setIsSearchPerformed(false); // Reset search performed state
   }, [type]);
+
+  useEffect(() => {
+    setRowData(data||[]);
+  }, [data]);
 
   const getColumnDefs = (type: string) => {
     if (type === "e-waybill") {

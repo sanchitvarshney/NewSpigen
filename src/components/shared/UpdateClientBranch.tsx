@@ -77,7 +77,7 @@ const MasterClientBranch: React.FC<Props> = (props: Props) => {
       form.setValue("gst", data?.gst);
       form.setValue("addressLine1", data?.addressLine1);
       form.setValue("addressLine2", data?.addressLine2);
-      form.setValue("useAsShipmentAddress", data?.useAsShipmentAddress);
+      form.setValue("useAsShipmentAddress", data?.useAsShipmentAddress||false);
       form.setValue("shipmentAddress.label", data?.shipmentAddress?.Label);
       form.setValue("shipmentAddress.company", data?.shipmentAddress?.Company);
       form.setValue(

@@ -69,9 +69,10 @@ const SalesInvoicePage: React.FC = () => {
   const dispatch = useDispatch();
   const [wise] = useState<any>("datwwise");
   const [isSearchPerformed, setIsSearchPerformed] = useState<boolean>(false);
-  const { data: rowData, loading } = useSelector(
+  const { data, loading } = useSelector(
     (state: RootState) => state.sellInvoice
   );
+  const [rowData, setRowData] = useState<any[]>([]); // Local state for row data
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -131,6 +132,15 @@ const SalesInvoicePage: React.FC = () => {
       gridRef.current.api.exportDataAsCsv();
     }
   }, []);
+
+  useEffect(() => {
+    setRowData(data);
+  }, [data]);
+
+  useEffect(() => {
+    setRowData([]);
+    setIsSearchPerformed(false);
+  }, [wise]);
 
   return (
     <Wrapper className="h-[calc(100vh-100px)] grid grid-cols-[350px_1fr] ">
