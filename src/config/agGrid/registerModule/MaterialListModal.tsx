@@ -19,6 +19,7 @@ interface MaterialListModalProps {
   row: {
     req_id: string;
   };
+  loading: boolean;
 }
 
 const MaterialListModal: React.FC<MaterialListModalProps> = ({
@@ -26,6 +27,7 @@ const MaterialListModal: React.FC<MaterialListModalProps> = ({
   onClose,
   sellRequestDetails,
   row,
+  loading,
 }) => {
   const gridRef = useRef<AgGridReact<any>>(null);
 
@@ -95,6 +97,7 @@ const MaterialListModal: React.FC<MaterialListModalProps> = ({
               truncateCellRenderer: TruncateCellRenderer,
             }}
             overlayNoRowsTemplate={OverlayNoRowsTemplate}
+            loading={loading}
           />
         </div>
       </SheetContent>

@@ -79,9 +79,9 @@ const SidebarMenues: React.FC<Props> = ({ uiState }) => {
                   <IoGrid className="h-[20px] w-[20px]" />
                   Order Management
                 </span>
-                <p className="font-[350] text-[13px] mt-[10px]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, inventore!</p>
+                {/* <p className="font-[350] text-[13px] mt-[10px]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, inventore!</p> */}
                 <a href="#" className="font-[350] text-[13px] mt-[10px] text-blue-200">
-                  Explore material management
+                  Explore Order management
                 </a>
               </div>
               <Separator className="bg-slate-200 text-slate-200" />

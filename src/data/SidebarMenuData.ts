@@ -50,11 +50,11 @@ export const sidebarMenulinklist: SidebarMenuLinkType[] = [
       {
         name: "Sales Order",
         subMenu: [
-          { name: "Create", path: "/sales/order/create" },
-          { name: "Register", path: "/sales/order/register" },
-          { name: "Invoice", path: "/sales/order/invoice" },
-          { name: "Allocated Invoices", path: "/sales/order/allocated" },
-          { name: "E Transaction Invoices", path: "/sales/order/e.transaction-register" },
+          { name: "Create Sales Order", path: "/sales/order/create" },
+          { name: "Sales Order Register", path: "/sales/order/register" },
+          { name: "Invoice Register", path: "/sales/order/invoice" },
+          { name: "CN/DN Register", path: "/sales/order/allocated" },
+          { name: "e-Transaction Invoices", path: "/sales/order/e.transaction-register" },
         ],
       },
       {
@@ -151,11 +151,11 @@ export const materialmenu = [
   {
     name: "Sales Order",
     subMenu: [
-      { name: "Create", path: "/sales/order/create" },
-      { name: "Register", path: "/sales/order/register" },
-      { name: "Invoice", path: "/sales/order/invoice" },
-      { name: "Allocated Invoices", path: "/sales/order/allocated" },
-      { name: "E Transaction Invoices", path: "/sales/order/e-transaction-register" },
+      { name: "Sales Order Create", path: "/sales/order/create" },
+      { name: "Register Sales Order", path: "/sales/order/register" },
+      { name: "Invoice Register", path: "/sales/order/invoice" },
+      { name: "CN/DN Register", path: "/sales/order/allocated" },
+      { name: "e-Transaction Invoices", path: "/sales/order/e-transaction-register" },
     ],
   },
   // {

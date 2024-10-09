@@ -33,7 +33,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ row }) => {
   const [date, setDate] = useState("");
   const [form] = Form.useForm();
   const [invoiceForm] = Form.useForm(); // Form instance for the invoice modal
-  const { sellRequestDetails } = useSelector(
+  const { sellRequestDetails,loading } = useSelector(
     (state: RootState) => state.sellRequest
   );
   const dateRange = useSelector(
@@ -199,6 +199,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ row }) => {
         onClose={handleMaterialListModalClose}
         sellRequestDetails={sellRequestDetails}
         row={{ req_id: row?.req_id }}
+        loading={loading}
       />
     </>
   );
@@ -212,7 +213,7 @@ export const columnDefs: ColDef<RowData>[] = [
     maxWidth: 100,
     cellRenderer: (params: any) => <ActionMenu row={params.data} />,
   },
-  { headerName: "#", valueGetter: "node.rowIndex + 1", minWidth: 50 },
+  { headerName: "#", valueGetter: "node.rowIndex + 1", maxWidth: 50,filter: false},
 
   {
     headerName: "SO ID",

@@ -42,6 +42,7 @@ const CreateSalesOrderPage = () => {
     mode: "onBlur",
   });
 console.log(updateData,"updateData")
+
   const handleClientChange = (e: any) => {
     form.setValue("customer_branch", e.value, {
       shouldValidate: true,
@@ -107,7 +108,7 @@ console.log(updateData,"updateData")
       }
     );
   };
-console.log(form.getValues())
+
   useEffect(() => {
     if (Object?.keys(updateData)?.length !== 0) {
       const { channel, client, bill, ship, materials }: any = updateData;
@@ -156,6 +157,7 @@ console.log(form.getValues())
         form.setValue("quotation_detail", clientData?.quotation_detail)
         form.setValue("payment_term", clientData?.paymentterms)
         form.setValue("terms_condition", clientData?.terms_condition)
+        setDerivedType(clientData?.clientState?.value=="09"?"L":"I");
         form.setValue("bill_name", clientData.clientname, {
           shouldValidate: true,
           shouldDirty: true,
