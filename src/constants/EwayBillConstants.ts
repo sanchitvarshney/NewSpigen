@@ -26,6 +26,20 @@ const supplyTypeOptions = [
         label: "Inward",
     },
   ];
+  const subsupplytype = [
+    { value: "1", label: "Supply" },
+    { value: "2", label: "Import" },
+    { value: "3", label: "Export" },
+    { value: "4", label: "Job Work" },
+    { value: "5", label: "For Own Use" },
+    { value: "6", label: "Job Work Return" },
+    { value: "7", label: "Sale Return" },
+    { value: "8", label: "Others" },
+    { value: "9", label: "SKD/CKD/Lots" },
+    { value: "10", label: "Line Sales" },
+    { value: "11", label: "Recipient Not Known" },
+    { value: "12", label: "Exhibition or Fairs" },
+  ]
   
   const subOptions = [
     { value: "B2B", label: "Business to Business" },
@@ -115,6 +129,18 @@ const header= z.object({
   igstOnIntra: z.enum(["Y", "N"]).optional(),
 });
 
+const headerEInv= z.object({
+  documentType: z.string({ required_error: "Document Type is required" }),
+  supplyType: z.string({ required_error: "Supply Type is required" }),
+  documentNo: z.string({ required_error: "Document No is required" }),
+  documentDate: z.string({ required_error: "Document Date is required" }),
+  transactionType: z.enum(["1", "2", "3", "4"], {
+    required_error: "Transaction Type is required",
+  }),
+  reverseCharge: z.enum(["Y", "N"]).optional(),
+  igstOnIntra: z.enum(["Y", "N"]).optional(),
+});
+
 const billFrom = z.object({
   gstin: z.string({ required_error: "GSTIN is required" }),
   legalName: z.string({ required_error: "Legal Name is required" }),
@@ -195,7 +221,7 @@ const ewaybillDetailsForInvoice = z.object({
 
 // Main schema
 const eInvoiceSchema = z.object({
-  header: header,
+  header: headerEInv,
   billFrom: billFrom,
   billTo: billTo,
   dispatchFrom: dispatchFrom,
@@ -212,12 +238,12 @@ const ewayBillSchema = z.object({
   ewaybillDetails: ewaybillDetailsForBill
 });
 
-const debitNoteHeader = header.extend({
+const debitNoteHeader = headerEInv.extend({
   debitNo: z.string().optional(),
   other_ref: z.string({ required_error: "Please enter Other Reference" }),
 });
 
-const creditNoteHeader = header.extend({
+const creditNoteHeader = headerEInv.extend({
   creditNo: z.string().optional(),
   other_ref: z.string({ required_error: "Please enter Other Reference" }),
 });
@@ -231,4 +257,4 @@ const creditNoteSchema = eInvoiceSchema.extend({
 })
 
 
-  export { supplyTypeOptions, subOptions , docType, transportationMode, vehicleTypeOptions, transactionTypeOptions ,columnDefs ,eInvoiceSchema,debitNoteSchema,creditNoteSchema,reverseOptions,ewayBillSchema};
+  export { supplyTypeOptions, subOptions , subsupplytype,docType, transportationMode, vehicleTypeOptions, transactionTypeOptions ,columnDefs ,eInvoiceSchema,debitNoteSchema,creditNoteSchema,reverseOptions,ewayBillSchema};
