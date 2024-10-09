@@ -95,7 +95,7 @@ export const soNotePrint = createAsyncThunk<
     const modifiedInvoice = note_no.replace(/\//g, "_");
 
     // Construct the URL with query parameters
-    const url = `https://spigenapitest.mscorpres.net/soEnotes/soNotePrint?note_no=${encodeURIComponent(modifiedInvoice)}`;
+    const url = `https://spigen.mscapi.live/soEnotes/soNotePrint?note_no=${encodeURIComponent(modifiedInvoice)}`;
     
     // Open the URL in a new tab/window
     window.open(url, "_blank");
