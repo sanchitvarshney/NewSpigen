@@ -277,7 +277,7 @@ export const EwayBillColumnDefs: ColDef<any>[] = [
     maxWidth: 100,
   },
   {
-    headerName: "SO Id",
+    headerName: "SO ID",
     field: "so_id",
     filter: "agDateColumnFilter",
     cellRenderer: CopyCellRenderer,
@@ -294,12 +294,6 @@ export const EwayBillColumnDefs: ColDef<any>[] = [
     field: "challanId",
     filter: "agTextColumnFilter",
     cellRenderer: CopyCellRenderer,
-  },
-  {
-    headerName: "Supply Type",
-    field: "supply_type",
-    filter: "agTextColumnFilter",
-    cellRenderer: "truncateCellRenderer",
   },
   {
     headerName: "Supply Type",
@@ -446,7 +440,7 @@ export const CrDbColumnDefs: ColDef<any>[] = [
     maxWidth: 100,
   },
   {
-    headerName: "SO Id",
+    headerName: "SO ID",
     field: "so_id",
     filter: "agDateColumnFilter",
     cellRenderer: CopyCellRenderer,
@@ -478,7 +472,7 @@ export const CrDbColumnDefs: ColDef<any>[] = [
     cellRenderer: CopyCellRenderer,
   },
   {
-    headerName: "CN/DN Id1",
+    headerName: "CN/DN Id",
     field: "note_no",
     filter: "agTextColumnFilter",
     cellRenderer: CopyCellRenderer,

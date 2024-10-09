@@ -102,7 +102,7 @@ export const printSellInvoice = createAsyncThunk(
       const modifiedInvoice = so_invoice.replace(/\//g, "_");
 
       // Construct the URL with query parameters
-      const url = `https://spigenapitest.mscorpres.net/so_challan_shipment/printSellInvoice?so_invoice=${encodeURIComponent(modifiedInvoice)}&printInvType=${encodeURIComponent(printInvType)}`;
+      const url = `https://spigen.mscapi.live/so_challan_shipment/printSellInvoice?so_invoice=${encodeURIComponent(modifiedInvoice)}&printInvType=${encodeURIComponent(printInvType)}`;
       
       // Make the GET request
       window.open(url, "_blank");
