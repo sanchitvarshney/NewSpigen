@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Props } from "@/types/MainLayout";
@@ -7,10 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FaUserEdit } from "react-icons/fa";
 import { PiPasswordFill } from "react-icons/pi";
+import SetPassword from "@/components/ui/SetPassword";
 
 const ProfileSidebar: React.FC<Props> = ({ uiState }) => {
   const { sidebaref, setSheet2Open, sheet2Open, setLogotAlert } = uiState;
   const userData = localStorage.getItem("loggedInUser");
+  const[changePassword,setChangePassword]=useState(false)
   const user = userData ? JSON.parse(userData) : null;
   
   return (
@@ -50,6 +52,7 @@ const ProfileSidebar: React.FC<Props> = ({ uiState }) => {
           <Link
             to={"#"}
             className="dispaly flex items-center gap-[10px] py-[8px] px-[10px] hover:bg-white/10 rounded text-slate-300"
+            onClick={() => setChangePassword(true)}
           >
             <PiPasswordFill className="h-[15px] w-[15px]" />
             <span className="text-[13px]"> Change Password</span>
@@ -66,6 +69,7 @@ const ProfileSidebar: React.FC<Props> = ({ uiState }) => {
           </Button>
         </div>
       </div>
+      <SetPassword open={changePassword} onClose={()=>setChangePassword(false)} />
     </div>
   );
 };

@@ -66,6 +66,15 @@ export const loginUserAsync = createAsyncThunk<AxiosResponse<LoginResponse>, Log
   }
 );
 
+export const changePassword = createAsyncThunk<AxiosResponse<LoginResponse>, LoginCredentials>(
+  'auth/changePassword',
+  async (loginCredential) => {
+    const response = await spigenAxios.post<LoginResponse>("profile/userChangePassword", loginCredential);
+    console.log(response)
+    return response;
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
