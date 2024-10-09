@@ -226,7 +226,7 @@ export const columnDefs: ColDef<RowData>[] = [
     field: "billTo",
     filter: "agTextColumnFilter",
     width: 400,
-    cellRenderer: CopyCellRenderer,
+    cellRenderer: "truncateCellRenderer",
   },
   {
     headerName: "Ack No",
@@ -251,14 +251,14 @@ export const columnDefs: ColDef<RowData>[] = [
     field: "billFromAddress",
     width: 400,
     filter: "agTextColumnFilter",
-    cellRenderer: CopyCellRenderer,
+    cellRenderer: "truncateCellRenderer",
   },
   {
     headerName: "Shipping Address",
     field: "shippingaddress2",
     width: 400,
     filter: "agTextColumnFilter",
-    cellRenderer: CopyCellRenderer,
+    cellRenderer: "truncateCellRenderer",
   },
 ];
 

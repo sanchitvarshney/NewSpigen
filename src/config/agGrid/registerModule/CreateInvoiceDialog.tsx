@@ -8,6 +8,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"; // Ensure this path is correct
 import moment from "moment";
+import { InputStyle } from "@/constants/themeContants";
 
 interface CreateInvoiceDialogProps {
   isDialogVisible: boolean;
@@ -48,7 +49,7 @@ export function CreateInvoiceDialog({
               { required: true, message: "Please enter the number of boxes!" },
             ]}
           >
-            <Input />
+            <Input className={InputStyle} />
           </Form.Item>
           <Form.Item
             name="invoice_no"
@@ -57,7 +58,7 @@ export function CreateInvoiceDialog({
               { required: true, message: "Please enter the invoice number!" },
             ]}
           >
-            <Input />
+            <Input className={InputStyle} />
           </Form.Item>
           <Form.Item
             name="invoice_date"
@@ -67,18 +68,23 @@ export function CreateInvoiceDialog({
             ]}
           >
             <DatePicker
-              className="py-[13px] w-[550px]"
+              className="border-0 border-b rounded-none shadow-none focus-visible:ring-0 border-neutral-700 py-[13px] w-[100%] hover:border-neutral-700"
+              // className="py-[13px] w-[550px]"
               format="DD-MM-YYYY"
               onChange={(date) => {
                 if (date) {
                   const dateFormat = moment(date as any).format("DD-MM-YYYY");
-                setDate(dateFormat);
+                  setDate(dateFormat);
                 }
               }}
             />
           </Form.Item>
           <Form.Item name="remark" label="Remark">
-            <Input.TextArea rows={4} style={{ height: 120, resize: "none" }} />
+            <Input.TextArea
+              rows={4}
+              style={{ height: 120, resize: "none" }}
+              className={InputStyle}
+            />
           </Form.Item>
         </Form>
         <DialogFooter>

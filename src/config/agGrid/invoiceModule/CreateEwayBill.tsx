@@ -43,6 +43,7 @@ import {
   transportationMode,
   vehicleTypeOptions,
   ewayBillSchema,
+  subsupplytype,
 } from "@/constants/EwayBillConstants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FullPageLoading from "@/components/shared/FullPageLoading";
@@ -374,13 +375,13 @@ export default function CreateEwayBill() {
                               isDisabled={false}
                               isClearable={true}
                               isSearchable={true}
-                              options={supplyTypeOptions}
+                              options={isEwayBill?supplyTypeOptions:subOptions}
                               onChange={(selectedOption) => {
                                 field.onChange(
                                   selectedOption ? selectedOption?.value : ""
                                 );
                               }}
-                              value={supplyTypeOptions?.find(
+                              value={(isEwayBill?supplyTypeOptions:subOptions)?.find(
                                 (option) => option.value === field.value
                               )}
                             />
@@ -390,14 +391,14 @@ export default function CreateEwayBill() {
                       )}
                     />
                   </div>
-                  <div>
+                 {(isEwayBill||!isCnDn) && <div>
                     <FormField
                       control={form.control}
                       name="header.subSupplyType"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className={LableStyle}>
-                            Sub Type
+                            Sub Supply Type
                             <span className="pl-1 text-red-500 font-bold">
                               *
                             </span>
@@ -413,13 +414,13 @@ export default function CreateEwayBill() {
                               isDisabled={false}
                               isClearable={true}
                               isSearchable={true}
-                              options={subOptions}
+                              options={subsupplytype}
                               onChange={(selectedOption) => {
                                 field.onChange(
                                   selectedOption ? selectedOption?.value : ""
                                 );
                               }}
-                              value={subOptions?.find(
+                              value={subsupplytype?.find(
                                 (option) => option.value === field.value
                               )}
                             />
@@ -428,7 +429,7 @@ export default function CreateEwayBill() {
                         </FormItem>
                       )}
                     />
-                  </div>
+                  </div>}
                   <div className="">
                     <FormField
                       control={form.control}
