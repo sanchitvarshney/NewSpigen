@@ -1,20 +1,21 @@
 import { toast } from "@/components/ui/use-toast";
 import { CopyIcon } from "lucide-react";
-import { Tooltip } from "antd"; // Import Tooltip
+import { Tooltip } from "antd";
 import styled from "styled-components";
 
 const CopyCellWrapper = styled.div`
   display: flex;
   align-items: center;
-  max-width: 100%; /* Ensure it respects the parent container width */
+  max-width: 100%;
 `;
 
 const TextWithEllipsis = styled.span`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 100%; /* Adjust as needed */
-  display: inline-block; /* Ensure it respects max-width */
+  max-width: calc(100% - 30px); /* Adjust to account for icon space */
+  display: inline-block;
+  padding-right: 10px; /* Add padding for better spacing */
 `;
 
 const CopyCellRenderer = (params: any) => {
@@ -30,7 +31,7 @@ const CopyCellRenderer = (params: any) => {
   return (
     <CopyCellWrapper>
       <TextWithEllipsis title={params.value}>{params.value}</TextWithEllipsis>
-      <Tooltip title={params.value} placement="top">
+      <Tooltip title={params.value} placement="top" mouseEnterDelay={0.5} mouseLeaveDelay={0.5}>
         <CopyIcon
           onClick={() => copyToClipboard(params.value)}
           style={{
@@ -39,6 +40,7 @@ const CopyCellRenderer = (params: any) => {
             width: "20px",
             height: "20px",
           }}
+          aria-label={`Copy ${params.value}`}
         />
       </Tooltip>
     </CopyCellWrapper>

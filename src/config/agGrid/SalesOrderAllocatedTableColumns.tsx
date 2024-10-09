@@ -134,7 +134,7 @@ export const columnDefs: ColDef<RowData>[] = [
     cellRenderer: (params: any) => <ActionMenu row={params.data} />,
   },
 
-  { headerName: "S.No.", valueGetter: "node.rowIndex + 1", maxWidth: 50 },
+  { headerName: "#", valueGetter: "node.rowIndex + 1", maxWidth: 50,filter: false },
   {
     headerName: "Status",
     field: "status",

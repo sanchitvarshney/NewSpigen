@@ -33,7 +33,7 @@ export const navLinks = [
   { href: "/sales/order/invoice", label: "Invoice", value: "invoice" },
   {
     href: "/sales/order/allocated",
-    label: "Allocated Invoices",
+    label: "CN/DN Register",
     value: "allocated-invoices",
   },
   {

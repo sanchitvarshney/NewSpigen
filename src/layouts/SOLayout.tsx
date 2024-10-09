@@ -9,7 +9,7 @@ const SOLayout = (props: { children: React.ReactNode }) => {
         <ul className="group flex items-center  h-[50px] ">
           <li className="h-[50px]">
             <NavLink to={"/sales/order/create"} className={({ isActive }) => `${navLinkStyle} ${isActive && navlinkActiveStyle}`}>
-              Create Sales order
+              Create Sales Order
             </NavLink>
           </li>
           <li className="h-[50px]">

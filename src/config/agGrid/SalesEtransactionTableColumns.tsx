@@ -314,6 +314,12 @@ export const EwayBillColumnDefs: ColDef<any>[] = [
     cellRenderer: "truncateCellRenderer",
   },
   {
+    headerName: "E-way Bill Number",
+    field: "eway_bill_no",
+    filter: "agTextColumnFilter",
+    cellRenderer: CopyCellRenderer,
+  },
+  {
     headerName: "Doc Type",
     field: "document_type",
     filter: "agTextColumnFilter",
@@ -416,12 +422,6 @@ export const EwayBillColumnDefs: ColDef<any>[] = [
     field: "trans_mode",
     filter: "agTextColumnFilter",
     cellRenderer: "truncateCellRenderer",
-  },
-  {
-    headerName: "E-way Bill Number",
-    field: "eway_bill_no",
-    filter: "agTextColumnFilter",
-    cellRenderer: CopyCellRenderer,
   },
   {
     headerName: "Generated Date",
