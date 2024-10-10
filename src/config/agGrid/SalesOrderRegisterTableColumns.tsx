@@ -185,6 +185,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ row }) => {
         handleCancel={handleCancel}
         row={{ req_id: row?.req_id }}
         form={form}
+        loading={loading}
       />
       <CreateInvoiceDialog
         isDialogVisible={isInvoiceModalVisible}
@@ -193,6 +194,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ row }) => {
         row={{ req_id: row?.req_id }}
         form={invoiceForm}
         setDate={setDate}
+        loading={loading}
       />
       <MaterialListModal
         visible={isMaterialListModalVisible}
