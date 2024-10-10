@@ -14,7 +14,7 @@ const MasterProductLayout = (props: { children: React.ReactNode }) => {
           </li>
           <li className="h-[50px]">
             <NavLink to={"/master/product/sfg"} className={({ isActive }) => `${navLinkStyle} ${isActive && navlinkActiveStyle}`}>
-              SFG Products
+              Product List
             </NavLink>
           </li>
         </ul>
