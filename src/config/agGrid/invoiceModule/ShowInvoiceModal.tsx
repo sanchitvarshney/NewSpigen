@@ -53,12 +53,11 @@ const DataDialog = ({ open, onClose, orderId, module }: any) => {
               <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
                 <h3>Info Details</h3>
                 <div>
-                  {data?.InfoDtls && data.InfoDtls.length > 0 ? (
-                    <pre>{JSON.stringify(data.InfoDtls, null, 2)}</pre> // Pretty print the object
+                  {data?.InfoDtls && data?.InfoDtls?.length > 0 ? (
+                    <pre>{JSON.stringify(data?.InfoDtls, null, 2)}</pre> // Pretty print the object
                   ) : (
                     <div>--</div>
                   )}
-                  data.InfoDtls
                 </div>
               </div>
 
