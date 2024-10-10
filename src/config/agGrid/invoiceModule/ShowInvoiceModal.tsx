@@ -13,7 +13,9 @@ const DataDialog = ({ open, onClose, orderId, module }: any) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleDownload = () => {
-    dispatch(printSellInvoice({ so_invoice: orderId, printInvType: "Original" }));
+    dispatch(
+      printSellInvoice({ so_invoice: orderId, printInvType: "Original" })
+    );
   };
 
   const handleBack = () => {
@@ -25,47 +27,89 @@ const DataDialog = ({ open, onClose, orderId, module }: any) => {
       <DialogContent className="w-full max-w-3xl h-fit max-h-[90vh] p-8 bg-white rounded-lg shadow-xl transition-transform transform overflow-y-auto">
         <Card className="rounded shadow bg-[#fff]">
           <CardHeader className="bg-[#e0f2f1] p-0 flex justify-center px-[10px] py-[5px]">
-            <h3 className="text-[17px] font-[600] text-slate-600">
-              Create {module}
-            </h3>
-          </CardHeader>
-          <CardContent className="mt-[10px]">
             <h2 className="text-[20px] font-[600] text-slate-600">
               {module} Bill Generation Successful
             </h2>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>E-Acknowledgement No:</h3>
-              <CopyCellRenderer value={data?.AckNo || "--"} />
+          </CardHeader>
+          <CardContent className="mt-[10px]">
+            <div className="bg-[#ffffb72b]">
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>E-Acknowledgement No:</h3>
+                <CopyCellRenderer value={data?.AckNo || "--"} />
+              </div>
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>Acknowledgment Date:</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>IRN No:</h3>
+                <CopyCellRenderer value={data?.Irn || "--"} />
+              </div>
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>Status:</h3>
+                <p>{data?.Status ? data.Status : "--"}</p>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>Acknowledgment Date:</h3>
-              <CopyCellRenderer value={data?.AckDt || "--"} />
-            </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>IRN No:</h3>
-              <CopyCellRenderer value={data?.Irn || "--"} />
-            </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>Status:</h3>
-              <p>{data?.Status ? data.Status : "--"}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>E-Way Bill No:</h3>
-              <CopyCellRenderer value={data?.EwbNo?data?.EwbNo:data?.ewayBillNo?data?.ewayBillNo:"--"} />
-            </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>E-Way Date:</h3>
-              <p>{data?.EwbDt?data?.EwbDt :data?.ewayBillDate?data?.ewayBillDate:"--"}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>E-Way Valid Till:</h3>
-              <p>{data?.EwbValidTill ? data.EwbValidTill : data?.validUpto?data?.validUpto:"--"}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
-              <h3>Other Ref:</h3>
-              <p>{data?.Remarks ? data.Remarks : data?.alert?data?.alert:"--"}</p>
-            </div>
+            <div className="bg-[#99ffb82b]">
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>Info Details</h3>
+                <div>
+                  {data?.InfoDtls && data?.InfoDtls?.length > 0 ? (
+                    data?.InfoDtls?.flatMap((info: any) =>
+                      info?.Desc?.map((desc: any) => (
+                        <div key={`${info?.InfCd}-${desc?.ErrorCode}`}>
+                          Message: {desc?.ErrorMessage}
+                        </div>
+                      ))
+                    )
+                  ) : (
+                    <div>--</div>
+                  )}
+                </div>
+              </div>
 
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>E-Way Bill No:</h3>
+                <CopyCellRenderer
+                  value={
+                    data?.EwbNo
+                      ? data?.EwbNo
+                      : data?.ewayBillNo
+                      ? data?.ewayBillNo
+                      : "--"
+                  }
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>E-Way Date:</h3>
+                <p>
+                  {data?.EwbDt
+                    ? data?.EwbDt
+                    : data?.ewayBillDate
+                    ? data?.ewayBillDate
+                    : "--"}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>E-Way Valid Till:</h3>
+                <p>
+                  {data?.EwbValidTill
+                    ? data.EwbValidTill
+                    : data?.validUpto
+                    ? data?.validUpto
+                    : "--"}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-[40px] mt-[30px]">
+                <h3>Other Ref:</h3>
+                <p>
+                  {data?.Remarks
+                    ? data.Remarks
+                    : data?.alert
+                    ? data?.alert
+                    : "--"}
+                </p>
+              </div>
+            </div>
             <div className="flex justify-center gap-4 mt-20">
               <Button
                 onClick={handleDownload}

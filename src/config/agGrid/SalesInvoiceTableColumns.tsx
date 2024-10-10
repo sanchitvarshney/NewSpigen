@@ -143,6 +143,7 @@ const ActionMenu: React.FC<any> = ({ row }) => {
         row={{ req_id: row.so_ship_invoice_id }}
         form={form}
         module="Invoice"
+        loading={loading}
       />
       <DebitNote
         visible={viewDebitNote}
